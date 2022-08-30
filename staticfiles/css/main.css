@@ -1,0 +1,35 @@
+
+
+#title-card{
+    background: #4CB8C4;  
+    background: -webkit-linear-gradient(to right, #3CD3AD, #4CB8C4);  
+    background: linear-gradient(to right, #3CD3AD, #4CB8C4); 
+}
+
+#country-card{
+    background: #FFEFBA;  
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); 
+    
+
+}
+#login-header{
+    background: #1A2980;  
+    background: -webkit-linear-gradient(to right, #26D0CE, #1A2980);  
+    background: linear-gradient(to right, #26D0CE, #1A2980); 
+}
+
+.chart-container{
+  position: relative !important;
+  margin: auto;
+  height: 250px;
+  width: 250px;
+}
+
+.radarchart-container{
+    position: relative;
+    margin: auto;
+    width: auto;
+    height: auto;
+  
+  }

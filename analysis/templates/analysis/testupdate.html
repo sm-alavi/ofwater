@@ -1,0 +1,90 @@
+{%extends 'main.html'%}
+
+
+{% block content %}
+{{form.media}}
+
+<div>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        
+        <div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-sm" type="submit">
+                    Update
+                </button>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                Test Information
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    {% for field in form %}
+                                    <div class="row">
+                                      <label class="mb-0" style="font-size:15px;">{{field.label}}</label>
+                                      <div class="mb-2">
+                                          {{field}} 
+                                      </div>
+                                    </div>                   
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>       
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                Analysis
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm table-borderless">
+                                    <tbody>
+                                    {% for field in form_analysis %}
+                                    <tr>
+                                        <td class="align-middle" style="font-size:15px;">{{field.label}}</td>
+                                        <td>{{field}}</td>
+                                        <td class="align-middle" style="font-size:12px;">{{field.help_text}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                Properties
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm table-borderless ">
+                                    <tbody>
+                                    {% for field in form_meta %}
+                                    <tr>
+                                        <td class="align-middle" style="font-size:15px;">{{field.label}}</td>
+                                        <td>{{field}}</td>
+                                        <td class="align-middle"  style="font-size:12px;">{{field.help_text}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+        
+
+            </div>
+          
+        </div>
+
+    </form>
+</div>
+
+{% endblock content%}

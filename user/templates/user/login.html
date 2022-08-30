@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+
+{% block logincontent%}
+
+{% load static %}
+
+<body class="container h-100" >
+  <div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="card">
+      <div class="card-header text-center bg-primary">
+        Oilfield Water Analysis
+      </div>
+      <div class="card-body">
+  
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form.username.errors }}
+            <label for="{{ form.username.id_for_label }}">Username: </label>
+            {{ form.username }}
+  
+          </div>
+  
+          <div class="form-group">
+            {{ form.password.errors }}
+            <label for="{{ form.subject.id_for_label }}">Password: </label>
+            {{ form.password }}
+        </div>
+  
+          <div class="row">
+       
+            <div class="col-5">
+              <button type="submit" class="btn btn-outline-primary btn-block">Sign In</button>
+            </div>
+         
+          </div> 
+        </form>
+  
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+</body>
+
+
+{% endblock %}

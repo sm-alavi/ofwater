@@ -1,0 +1,58 @@
+[
+  {
+    "model": "analysis.metadata",
+    "pk": 12,
+    "fields": {
+      "created_by": null,
+      "updated_by": null,
+      "updated_date": "2022-04-13T09:59:38.199Z",
+      "created_date": "2022-04-13T09:59:38.158Z",
+      "name": "PH",
+      "unit": null,
+      "updated": "2022-03-02T10:22:09.275Z",
+      "created": "2022-03-02T10:22:09.275Z"
+    }
+  },
+  {
+    "model": "analysis.metadata",
+    "pk": 13,
+    "fields": {
+      "created_by": null,
+      "updated_by": null,
+      "updated_date": "2022-04-13T09:59:38.199Z",
+      "created_date": "2022-04-13T09:59:38.158Z",
+      "name": "Temeprature",
+      "unit": "C",
+      "updated": "2022-03-02T10:22:17.932Z",
+      "created": "2022-03-02T10:22:17.932Z"
+    }
+  },
+  {
+    "model": "analysis.metadata",
+    "pk": 14,
+    "fields": {
+      "created_by": null,
+      "updated_by": null,
+      "updated_date": "2022-04-14T03:30:40.293Z",
+      "created_date": "2022-04-13T09:59:38.158Z",
+      "name": "Pressure",
+      "unit": "bar",
+      "updated": "2022-04-14T03:30:40.293Z",
+      "created": "2022-03-02T10:22:25.596Z"
+    }
+  },
+  {
+    "model": "analysis.metadata",
+    "pk": 15,
+    "fields": {
+      "created_by": null,
+      "updated_by": null,
+      "updated_date": "2022-04-13T09:59:38.199Z",
+      "created_date": "2022-04-13T09:59:38.158Z",
+      "name": "Total Dissolved Solids",
+      "unit": "mg/lit",
+      "updated": "2022-03-02T10:22:39.507Z",
+      "created": "2022-03-02T10:22:39.507Z"
+    }
+  }
+]

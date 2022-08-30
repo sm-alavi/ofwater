@@ -1,0 +1,70 @@
+{% extends 'main.html' %}
+
+{%block content%}
+
+<div>
+    <div class="mb-3">
+        <a href="{% url 'test-create' %}" class="btn btn-primary btn-sm rounded shadow"><i class="bi bi-plus-circle"></i> Add New</a>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <i class="fas fa-table me-1"></i>
+            Tests
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple" class = "table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Lab No.</th>
+                        <th>Well</th>
+                        <th>Sample Point</th>
+                        <th>Sample Date</th>
+                        <th>Report Date</th>
+                        <th>CBE(%)</th>
+                        <th>Updated</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Lab No.</th>
+                        <th>Well</th>
+                        <th>Sample Point</th>
+                        <th>Sample Date</th>
+                        <th>Report Date</th>
+                        <th>CBE(%)</th>
+                        <th>Updated</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for test in test%}
+                    <tr>
+                        <td>{{test.lab_number}}</td>
+                        <td>{{test.well}}</td>
+                        <td>{{test.samplepoint}}</td>
+                        <td>{{test.sampling_date | date:'Y-m-d'}}</td>
+                        <td>{{test.report_date | date:'Y-m-d'}}</td>
+                        <td>{{test.cbe}}</td>
+                        <td>{{test.updated | date:'Y-m-d'}}</td>
+                        <td>{{test.created | date:'Y-m-d'}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'test-view' test.id %}" class="btn btn-primary btn-sm" title="View"><i class="bi bi-eye"></i></a>
+                                <a href="{% url 'test-update' test.id %}" class="btn btn-secondary btn-sm" title="Edit"><i class="bi bi-pencil"></i></a>
+                                <a href="{% url 'test-delete' test.id %}" class="btn btn-danger btn-sm" title="Delete"><i class="bi bi-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{%endblock%}
+

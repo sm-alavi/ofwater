@@ -1,0 +1,148 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="row mb-3">
+        {% for item in summary %}
+        {% url item.url  as url %}
+        <div class="col-xl-3 col-md-6">
+            <div class="card text-white shadow mb-2" id="title-card">
+                <div class="card-header pt-2 pb-0"><h6>{{item.title}}</h6></div>
+                <div class="card-body p-2 text-center"><h4>{{item.count}}</h4></div>
+                <div class="card-footer p-2 d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="{{url}}">View {{item.title}}</a>
+                    <div class="small"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-md-6">
+        <div class="card">
+      
+          <div class="card-body">
+            <div class="m-n2">
+              <ul class="nav nav-pills mb-2">
+                <li class="nav-item mr-5">Number of wells in each category</li>
+                <li class="nav-item mr-1">
+                  <a class="btn btn-sm btn-outline-info" href="#samplepoint" data-toggle="tab"><small>Sample Point</small></a>
+                </li>
+                <li class="nav-item">
+                  <a class="btn btn-sm btn-outline-info" href="#field" data-toggle="tab"><small>Field</small></a>
+                </li>
+              </ul>
+            </div>
+            {% if wells_count == 0 %}
+            <p>There is no well data</p>
+            {% else %}
+            <div class="tab-content p-0">
+              <!-- Morris chart - Sales -->
+              <div class="chart tab-pane active" id="samplepoint"
+                   style="position: relative; height: 250px;">
+                  <canvas id="sp-piechart" height="250" style="height: 250px;"></canvas>
+               </div>
+              <div class="chart tab-pane" id="field" style="position: relative; height: 250px;">
+                <canvas id="field-piechart" height="250" style="height: 250x;"></canvas>
+              </div>
+            </div>
+            {% endif %}
+            
+          </div><!-- /.card-body -->
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+        <div class="card bg-gradient-light mb-2">
+          
+          <div class="card-body m-n3">
+            <div id="map" class = "pn-5" style="height: 300px; width: 100%;"></div>
+          </div>    
+        </div>
+
+        <div class="card bg-gradient-light mb-2">
+          <div class="card-body">
+            <h6 class="mb-n1">Charge Balance Error(CBE)</h6>
+            <small>Each block shows number of test with CBE in the respective range</small>
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <div class="card bg-success">
+                  <div class="card-body p-2 text-center">
+                    <h6>{{cbe_green}}</h6>
+                  </div>
+                  <div class="card-footer p-1 text-center">
+                    <small>[0-5%]</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card bg-warning">
+                  <div class="card-body p-2 text-center">
+                    <h6>{{cbe_yellow}}</h6>
+                  </div>
+                  <div class="card-footer p-1 text-center">
+                    <small>(5%-10%)</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card bg-danger">
+                  <div class="card-body p-2 text-center">
+                    <h6>{{cbe_red}}</h6>
+                  </div>
+                  <div class="card-footer p-1 text-center">
+                    <small>[10%-...)</small>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+
+
+
+
+  
+
+
+{% endblock content %}
+
+
+{% block javascript %}
+
+{{ wells|json_script:"wells" }}
+
+
+<script>
+
+  var sp_labels = [
+              {% for item in samplepoint_test %}'{{item.samplepoint__name}}',{%endfor%}
+          ];
+
+  var sp_data = [
+              {% for item in samplepoint_test %}{{item.total}},{%endfor%}
+            ];
+
+  var field_labels= [
+        {% for item in field_test %}'{{item.well__field__name}}',{%endfor%}
+    ];
+
+  var field_data = [
+        {% for item in field_test %}{{item.total}},{%endfor%}
+      ];
+</script>
+
+<script src="{% static 'js/dashboard-map.js' %}"></script>
+<script src="{% static 'js/field-piechart.js' %}"></script>
+<script src="{% static 'js/sp-piechart.js' %}"></script>
+
+{%endblock javascript %}
+

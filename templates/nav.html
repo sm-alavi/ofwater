@@ -1,0 +1,32 @@
+{% load static %}
+
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+  <!-- Navbar Brand-->
+  <a class="navbar-brand ps-3" href="{% url 'dashboard' %}">Water Analysis</a>
+  <!-- Sidebar Toggle-->
+  <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+  <!-- Navbar Search-->
+
+  <!-- Navbar-->
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item ml-2">
+        <a class="nav-link" href="{% url 'well' %}"> Wells</a>
+    </li>
+    
+    <li class="nav-item">
+        <a href="{% url 'test' %}" class="nav-link">Tests</a>
+    </li>
+  </ul>
+
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item mr-1">
+            <a class="nav-link" href="{% url 'profile' %}">{{request.user.get_full_name}}</a>
+        </li>
+        
+        <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link btn btn-sm btn-outline-warning text-warning">Logout</a>
+        </li>
+    </ul>
+  
+</nav>

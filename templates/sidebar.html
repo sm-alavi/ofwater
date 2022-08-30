@@ -1,0 +1,49 @@
+{% load static %}
+
+<div id="layoutSidenav_nav">
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+          <div class="nav mt-3">
+              <a class="nav-link" href="{% url 'dashboard' %}">
+                  <div class="sb-nav-link-icon"><img class="sb-nav-link-icon" src="{% static 'svg/dashboard.svg'%}" alt=""></div>
+                  Dashboard
+              </a>
+              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseWells" aria-expanded="false" aria-controls="collapseLayouts">
+                  <div class="sb-nav-link-icon"><img class="sb-nav-link-icon" src="{% static 'svg/oilwell.svg'%}" alt=""></div>
+                  Wells
+                  <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="collapseWells" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                  <nav class="sb-sidenav-menu-nested nav">
+                      <a class="nav-link" href="{% url 'field' %}"><div><img class="sb-nav-link-icon" src="{% static 'svg/field.svg'%}" alt=""></div>Fields</a>
+                      <a class="nav-link" href="{% url 'well' %}"><div><img class="sb-nav-link-icon" src="{% static 'svg/oilwell.svg'%}" alt=""></div>Wells</a>
+                  </nav>
+              </div>
+
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTests" aria-expanded="false" aria-controls="collapseLayouts">
+                <div class="sb-nav-link-icon"><img class="sb-nav-link-icon" src="{% static 'svg/test.svg'%}" alt=""></div>
+                Tests
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseTests" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" href="{% url 'test' %}"><div><img class="sb-nav-link-icon" src="{% static 'svg/test.svg'%}" alt=""></div>Tests</a>
+                    <a class="nav-link" href="{% url 'analysis' %}"><div><img class="sb-nav-link-icon" src="{% static 'svg/analysis1.svg'%}" alt=""></div>Analysis</a>
+                    <a class="nav-link" href="{% url 'metadata' %}"><div><img class="sb-nav-link-icon" src="{% static 'svg/metadata.svg'%}" alt=""></div>Properties</a>
+                </nav>
+            </div>
+
+              
+              <a class="nav-link" href="{% url 'samplepoint' %}">
+                  <div class="sb-nav-link-icon"><img src="{% static 'svg/samplepoint.svg'%}" alt=""></div>
+                  Sample Points
+              </a>
+              <a class="nav-link" href="{% url 'stifftemplate' %}">
+                  <div class="sb-nav-link-icon"><img src="{% static 'svg/stiffchart.svg'%}" alt=""></div>
+                  Stiff Templates
+              </a>
+          </div>
+      </div>
+
+  </nav>
+</div>

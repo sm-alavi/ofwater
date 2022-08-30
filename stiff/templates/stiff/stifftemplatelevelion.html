@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+
+{%block content%}
+
+<div class="shaodw m-4 ">
+    <div>
+        <p class="badge rounded-pill bg-secondary">Stiff Template Level Ions</p>
+        <a href="{% url 'stifftemplatelevelion-create' stifftemplatelevel.id %}" class="btn btn-primary btn-sm rounded shadow"><i class="bi bi-plus-circle"></i> Add New</a>
+        <a href="{% url 'stifftemplatelevel' stifftemplatelevel.stiff_template.id %}" class="btn btn-secondary btn-sm rounded shadow"><i class="bi bi-arrow-90deg-left"></i> Back</a>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <i class="fas fa-table me-1"></i>
+            Stiff Template Ions for Level <strong>{{stifftemplatelevel.name}} </strong> of template <strong> {{stifftemplatelevel.stiff_template.name}}</strong>
+        </div>
+        <div class="card-body text-center">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Ion</th>
+                        <th>Updated</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Ion</th>
+                        <th>Updated</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{item.analysis.name}}</td>
+                        <td>{{item.updated}}</td>
+                        <td>{{item.created}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'stifftemplatelevelion-delete' item.id %}" class="btn btn-danger btn-sm" title="Delete"><i class="bi bi-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{%endblock%}

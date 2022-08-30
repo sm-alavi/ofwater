@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+
+
+{% block content%}
+
+{{form.media}}
+<div class="container mt-5 justify-content-center w-75">
+    <div class="card shadow d-inline-block justify-centent-center" >
+        <div class="card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group mb-2 row">
+                  {% for field in form %}
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label">{{field.label}}</label>
+                    <div class="col-sm-9 mb-1 ">
+                        {{field}} 
+                        <p class="text-muted"><small>{{field.help_text}}</small></p>
+                    </div>
+                  </div>                   
+                    
+                   
+                    {% endfor %}
+                    
+                    <div class="container mt-3" >
+                        <button class="btn btn-primary m-2" type="submit" >Update</button>
+                    </div>
+                    
+                </div>   
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

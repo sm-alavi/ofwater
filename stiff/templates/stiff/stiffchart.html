@@ -1,0 +1,230 @@
+{% extends 'main.html' %}
+
+{% block content%}
+{{form.media}}
+<div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header text-white bg-secondary ">
+                    Filter Panel
+                </div>
+                <div class="card-body">
+                    <form method="post" action="">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            {{form.as_p}}
+                            
+                          </div>
+                        <button class="btn btn-primary btn-sm m-2" type="submit" >Load</button>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow " >
+                <div class="card-header text-white bg-secondary">
+                    Stiff Chart
+                </div>
+                <div class="card-body">
+                    <div>
+                        <canvas id="stiff" height="400px"  ></canvas>  
+                    </div>
+                       
+                </div>
+               
+                    {% if tests|length > 0 %}
+                    <div class="card-footer p-2 justify-content-end">
+                    <a id="download" class="btn btn-sm btn-warning" download="stiffchart.jpeg"><i class="bi bi-cloud-arrow-down"></i> Download</a> 
+                    </div>
+                    {% endif %}
+                    
+                
+            </div>
+        </div>
+    </div>
+    
+
+    
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+{% block javascript %}
+
+
+{{ tests|json_script:"tests" }}
+{{ analysis|json_script:"analysis" }}
+{{ ions|json_script:"ions" }}
+{{ labels|json_script:"labels" }}
+
+<script>
+        document.getElementById("download").addEventListener('click', function(){
+            var url_base64jp = document.getElementById("stiff").toDataURL("image/jpeg");
+            var a =  document.getElementById("download");
+            a.href = url_base64jp;
+            });
+
+        var tests = JSON.parse(document.getElementById('tests').textContent);
+        var analysis = JSON.parse(document.getElementById('analysis').textContent);
+        var ions = JSON.parse(document.getElementById('ions').textContent);
+        var labels = JSON.parse(document.getElementById('labels').textContent);
+        var min_scale = Math.min(...labels.map(function(item){return item['y']})) - 0.5
+        var max_scale = Math.max(...labels.map(function(item){return item['y']})) + 0.5
+
+        let datasets=[]
+                tests = tests,
+                datasets = tests.map(function(item){
+                    var r = Math.floor(Math.random() * 256);
+                    var g = Math.floor(Math.random() * 256);
+                    var b = Math.floor(Math.random() * 256);
+                    var rgb = 'rgb('+ r +','+g+','+b+')'
+                    var rgba = 'rgba('+ r +','+g+','+b+ ','+ 0.2 + ')'
+                    return {
+                        label:item.lab_number + ' - ' +item.sampling_date + ' - ' +item.well[0].name ,
+                        data: item.data,
+                        fill: false,
+                        tension: 0,
+                        showLine:true,
+                        backgroundColor: rgba,
+                        borderColor: rgb,
+                        pointBackgroundColor: rgb,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: rgb,
+                      }
+                })
+                
+      
+                
+                var data = {
+                    labels: labels,
+                    datasets: datasets,
+                
+                  };
+                
+                  const config = {
+                    type: 'scatter',
+                    data: data,
+                    options: {
+                        maintainAspectRatio: false,
+                    plugins:{
+                          tooltip:{
+                              bodyFont:{
+                                  size:13,
+                              }
+
+                          },
+                          legend:{
+                              display:true,
+                              labels:{
+                                  font:{
+                                      size:13,
+                                  }
+                              }
+                          }
+
+                      },
+                      elements: {
+                        line: {
+                          borderWidth: 2
+                        }, 
+                      }, 
+                      scales: {
+                        x:{
+
+                            type:'linear',
+                            position:'top',
+                            grid:{
+                                display:false,
+                            },
+                            title:{
+                                text:'meqv/lit',
+                                display:true,
+                            },
+         
+                            ticks:{
+                                callback: function(value, index, ticks){
+                                    return Math.abs(value)
+                                }
+
+                            }
+                        },
+                        y: {
+                            type:'linear',
+                            position:'left',
+                            max:max_scale,
+                            min:min_scale,
+                            grid:{
+                                display:false,
+                            },
+
+                ticks: {
+                    
+                    callback: function(value, index, ticks) {
+                        var label = labels.filter(function(item){return item['alignment'] == 'near' && item['y']==value})
+                        if (label.length > 0){
+                            return label[0]['label']
+                        }
+                        else{
+                            return ''
+                        }
+           
+                    }
+                }
+            }, 
+                        y1:{
+                            type:'linear',
+                            position:'right',
+                            max:max_scale,
+                            min:min_scale,
+                            grid:{
+                                display:false,
+                            },
+                            ticks: {
+                    // Include a dollar sign in the ticks
+                    callback: function(value, index, ticks) {
+                        var label = labels.filter(function(item){return item['alignment'] == 'far' && item['y']==value})
+                        
+                        if (label.length > 0){
+                            return label[0]['label']
+                        }
+                        else{
+                            return ''
+                        }
+                    }
+                }
+
+                        }
+
+       
+      }
+   }    
+                    };
+               
+                  
+                 
+                  if (window.radarchart != null)
+                  {
+                      window.radarchart.destroy()
+                  }
+
+                window.radarchart = new Chart(
+                        document.getElementById('stiff'),
+                        config
+                      );
+                document.getElementById('btn-dl-chart').href = document.getElementById('stiff').toBase64Image();
+
+            
+</script>
+
+
+
+{%endblock javascript %}

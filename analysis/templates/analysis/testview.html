@@ -1,0 +1,261 @@
+{%extends 'main.html'%}
+
+
+{% block content %}
+
+<div class="container shadow w-75 mt-3 p-3 border-dark">
+    <div class="d-flex flex-row-reverse align-right float">
+        <a href="{% url 'test' %}" class="btn btn-secondary btn-sm rounded shadow-sm"><i class="bi bi-arrow-90deg-left"></i> Back</a>
+    </div>
+    <div>
+        <H4>Test Data</H4>
+    </div>
+    <div class="row d-inline justify-content-center p-3">
+        <div class="accordion">
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#information" aria-expanded="true" aria-controls="collapseOne">
+                    Test Information
+                  </button>
+                </h2>
+                <div id="information" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                      <div class="row">
+                          <div class="col-md-6">
+                            <table class="table table-responsive table-sm table-striped">
+                                <tbody>
+                                <tr>
+                                    <td>Lab No.</td>
+                                    <td>{{test.lab_number}}</td>
+                                </tr> 
+                                
+                                <tr>
+                                    <td>Country</td>
+                                    <td>{{test.well.field.country.name}}</td>
+                                </tr> 
+                                <tr>
+                                    <td>Field</td>
+                                    <td>{{test.well.field.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Well</td>
+                                    <td>{{test.well.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Sampling Date</td>
+                                    <td>{{test.sampling_date}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Report Date</td>
+                                    <td>{{test.report_date}}</td>
+                                </tr>
+                                  
+                                </tbody>
+                            </table>
+
+                          </div>
+                          {% if test.comment|length > 0%}
+                          <div class="col-md-6">
+                            <div class="border border-1 border-secondary rounded-3 m-2 p-2">
+                              <p>Comments:</p>
+                              <p>{{test.comment}}</p>
+                            </div>
+                          </div>
+                          {%endif%}
+
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#analysis" aria-expanded="false" aria-controls="collapseTwo">
+                    Analysis
+                  </button>
+                </h2>
+                <div id="analysis" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                      <div class="row">
+                          <div class="col">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Abbv.</th>
+                                    <th scope="col">Conc. (mg/lit)</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in testanalysis%}
+                                {% if item.analysis.charge > 0 %}
+                                <tr>
+                                    <td>{{item.analysis.name}}</td>
+                                    <td>{{item.analysis.abbreviation}}</td>
+                                    <td>{{item.value}}</td>
+                                </tr>
+                                {%endif%}
+                                {%endfor%}
+                                  
+                                </tbody>
+                            </table>
+                          </div>
+
+                          <div class="col">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Abbv.</th>
+                                    <th scope="col">Conc. (mg/lit)</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in testanalysis%}
+                                {% if item.analysis.charge < 0 %}
+                                <tr>
+                                    <td>{{item.analysis.name}}</td>
+                                    <td>{{item.analysis.abbreviation}}</td>
+                                    <td>{{item.value}}</td>
+                                </tr>
+                                {%endif%}
+                                {%endfor%}
+                                  
+                                </tbody>
+                            </table>
+
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#properties" aria-expanded="false" aria-controls="collapseTwo">
+                    Properties
+                  </button>
+                </h2>
+                <div id="properties" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                      <div>
+                        <table class="table table-sm table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Value</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in testmetadata%}
+                            <tr>
+                                <td>{{item.metadata.name}}</td>
+                                <td>{{item.value}}</td>
+                            </tr>
+                            {%endfor%}
+                              
+                            </tbody>
+                        </table>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#charts" aria-expanded="false" aria-controls="collapseTwo">
+                    Charts
+                  </button>
+                </h2>
+                <div id="charts" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-xl-6">
+                        <div class="card">
+                          <div class="card-header">
+                            Radar
+                          </div>
+                          <div class="card-body">
+                            {% if testanalysis.count > 0 %}
+                            <canvas id="radar" width="100%" height="40"></canvas>
+                            {% else %}
+                            <strong> No Data </strong>
+                            {%endif%}
+                            
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6">
+                        <div class="card">
+                          <div class="card-header">
+                            Stiff
+                          </div>
+                          <div class="card-body">
+                            <canvas id="stiff" width="100%" height="40"></canvas>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                      
+                  </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{% block javascript %}
+
+<script>
+  var data = {
+    labels: [
+      {% for item in testanalysis %}'{{item.analysis.name}}',{%endfor%}
+    ],
+
+    datasets: [{
+      label:'',
+      data: [
+        {% for item in testanalysis %} {{item.value}}, {%endfor%}
+      ],
+      fill: true,
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointBackgroundColor: 'rgb(255, 99, 132)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(255, 99, 132)', 
+      borderCapStyle:'butt'
+    }]
+  };
+
+  const config = {
+    type: 'radar',
+    data: data,
+    options: {
+      elements: {
+        line: {
+          borderWidth: 3
+        }
+      }
+    },
+  };
+
+
+  var myChart = new Chart(
+        document.getElementById('radar'),
+        config
+      );
+
+</script>
+
+
+
+{%endblock javascript %}
